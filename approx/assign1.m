@@ -25,8 +25,9 @@ ys2 = f(xs2);
 y2 = lagrange(x, xs2, ys2);
 plot(x, y2, '-.m','linewidth',2)
 hold off
-legend('ground truth', 'equally spaced', 'chebyshev')
-title('Lagrange Interpolation of $f(x)=\frac{1}{1+x^2}, x \in [-5, 5]$','Interpreter','LaTex')
+l = legend('ground truth', 'equally spaced', 'chebyshev');
+%title('Lagrange Interpolation of $f(x)=\frac{1}{1+x^2}, x \in [-5, 5]$','Interpreter','LaTex', 'fontsize', 30);
+set(l,'Fontsize',30, 'box', 'off');
 end
 
 function [y] = f(x)
