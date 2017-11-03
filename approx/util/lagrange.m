@@ -3,13 +3,14 @@ function [y] = lagrange(x, xs, ys)
 % @param x - input
 % @param xs - x_1, x_2, ...
 % @param ys - y_1, y_2, ...
+% @retval y - L(x)
 
 assert(all(size(xs)==size(ys)), ['size of xs and ys should be identical']);
-y = [];
+y = zeros(1, length(x));
 for n=1:length(x)
-    ls = [];
+    ls = zeros(1, length(xs));
     for i=1:length(xs)
-        ls = [ls,lagrange_base(x(n), xs, i)];
+        ls(i) = lagrange_base(x(n), xs, i);
     end
-    y = [y, sum(ys.*ls)];
+    y(n) = sum(ys.*ls);
 end

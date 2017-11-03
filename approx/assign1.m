@@ -15,32 +15,49 @@ hold on
 %% equally spaced points
 xs1 = -5:1:5;
 ys1 = f(xs1);
-y1 = lagrange(x, xs1, ys1);
-plot(x, y1, '--','linewidth',2)
+y_lagrange = lagrange(x, xs1, ys1);
+plot(x, y_lagrange, '--','linewidth',2)
+hold on
+
+%% hermite
+[fs, xs] = hermite_preprocess(xs1, @f, @df);
+y_hermite = hermite(fs,xs,x);
+plot(x,y_hermite,'linewidth',2)
 hold on
 
 %% zero points of order 11 Chebyshev polynomial
 xs2 = 5*zero_point_of_chebyshev(11, 1:11);
 ys2 = f(xs2);
-y2 = lagrange(x, xs2, ys2);
-plot(x, y2, '-.m','linewidth',2)
+y_chebyshev = lagrange(x, xs2, ys2);
+plot(x, y_chebyshev, '-.m','linewidth',2)
 hold off
-l = legend('ground truth', 'equally spaced', 'chebyshev');
+
+l = legend('ground truth', 'equally spaced', 'hermite' ,'chebyshev');
 %title('Lagrange Interpolation of $f(x)=\frac{1}{1+x^2}, x \in [-5, 5]$','Interpreter','LaTex', 'fontsize', 30);
 set(l,'Fontsize',30, 'box', 'off');
 end
 
 function [y] = f(x)
-y = [];
+y = zeros(1, length(x));
 for n=1:length(x)
-    y = [y, 1./(1.+x(n)^2)];
+    curr = x(n);
+    y(n) = 1./(1.+curr^2);
+end
+end
+
+function [y] = df(x)
+y = zeros(1, length(x));
+for n=1:length(x)
+    curr = x(n);
+    y(n) = (-1.)*(2.*curr)/(1.+curr^2)^2;
 end
 end
 
 function [res] = zero_point_of_chebyshev(n, i)
 assert(all(i<=n), ['order n chebyshev polynomial has only n zero point'])
-res = [];
+res = zeros(1, length(i));
 for k=1:length(i)
-    res = [res, cos(((2*i(k)-1)*pi)/(2*n))];
+    curr = i(k);
+    res(k) = cos(((2*curr-1)*pi)/(2*n));
 end
 end
