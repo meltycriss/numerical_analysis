@@ -1,4 +1,4 @@
-function [y] = lagrange(x, xs, ys)
+function [y] = lagrange(xs, ys, x)
 %% L(x) = \sum{y_i * l_i(x)}
 % @param x - input
 % @param xs - x_1, x_2, ...

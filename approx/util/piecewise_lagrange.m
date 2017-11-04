@@ -20,7 +20,7 @@ for k=1:length(x)
     end
     xs = v_xs{n};
     ys = v_ys{n};
-    y(k) = lagrange(curr_x, xs, ys);
+    y(k) = lagrange(xs, ys, curr_x);
 end
 
 end
