@@ -15,10 +15,7 @@ for i=1:length(v)
 end
 xs = vv(1:end-1);
 
-fs = zeros(1, 2*length(v));
+fs = avg_diff(vv,1,length(vv),f,df);
 fs(1) = f(v(1));
-for i=2:length(vv)
-    fs(i) = avg_diff(vv,1,i,f,df);
-end
 
 end
